@@ -1,0 +1,29 @@
+const dbConnection = require('./db_connection');
+const path = require('path');
+const { readFileSync } = require('fs');
+
+let sqlPath = path.join(__dirname, 'db_build.sql');
+
+const sqlString = readFileSync(sqlPath).toString();
+console.log('this is ........', sqlString);
+
+const runDbBuild = () =>
+  //builds and inserts rows and columns from db_build.sql
+  new Promise((resolve, reject) => {
+    //   opens connection to db
+    dbConnection.query(sqlString, (err, res) => {
+      if (err) reject(err);
+      console.log('database being built');
+      resolve(true);
+    });
+  });
+
+runDbBuild()
+  .then(res => {
+    process.stdout.write('build success');
+  })
+  .catch(err => {
+    process.stdout.write('build failed');
+  });
+
+module.exports = runDbBuild;
