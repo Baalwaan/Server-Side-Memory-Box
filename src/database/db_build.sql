@@ -9,6 +9,6 @@ create table diary (
 	message VARCHAR(250) NOT NULL,
 	time_stamp VARCHAR(100)
 );
-insert into diary (name, log_type, message, time_stamp) values ('Burhan', 'Challenge', 'Today I built this database for a daily memory logge and I am proud of it', now());
+insert into diary (name, log_type, message, time_stamp) values ('burhan', 'Challenge', 'Today I built this database for a daily memory logge and I am proud of it', TO_CHAR(NOW() :: DATE, 'day dd Mon, yyyy'));
 
 COMMIT;
